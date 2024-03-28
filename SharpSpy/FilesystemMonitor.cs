@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -70,48 +70,27 @@ namespace SharpSpy
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            logger.Log(LOG_SOURCE, new
-            {
-                ev = EV_CHANGE,
-                path = e.FullPath
-            });
+            logger.Log(LOG_SOURCE, $"changed: {e.FullPath}");
         }
 
         private void OnDeleted(object sender, FileSystemEventArgs e)
         {
-            logger.Log(LOG_SOURCE, new
-            {
-                ev = EV_DELETE,
-                path = e.FullPath
-            });
+            logger.Log(LOG_SOURCE, $"deleted: {e.FullPath}");
         }
 
         private void OnCreated(object sender, FileSystemEventArgs e)
         {
-            logger.Log(LOG_SOURCE, new
-            {
-                ev = EV_CREATE,
-                path = e.FullPath
-            });
+            logger.Log(LOG_SOURCE, $"created: {e.FullPath}");
         }
 
         private void OnRenamed(object sender, RenamedEventArgs e)
         {
-            logger.Log(LOG_SOURCE, new
-            {
-                ev = EV_RENAME,
-                from = e.OldFullPath,
-                to = e.FullPath
-            });
+            logger.Log(LOG_SOURCE, $"renamed: {e.FullPath}");
         }
 
         private void OnError(object sender, ErrorEventArgs e)
         {
-            logger.Log(LOG_SOURCE, new
-            {
-                ev = "error",
-                error = e.ToString()
-            });
+            logger.Log(LOG_SOURCE, $"error: {e}");
         }
     }
 }

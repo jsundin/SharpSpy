@@ -1,10 +1,8 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
-using System.Collections.Generic;
-using System.Text.Json;
 
 namespace SharpSpy
 {
@@ -77,16 +75,11 @@ namespace SharpSpy
             }
         }
 
-        public void Log(string source, object payload)
+        public void Log(string source, string payload)
         {
-            var message = new
-            {
-                timestamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"),
-                source = source,
-                message = payload
-            };
-
-            Write(JsonSerializer.Serialize(message));
+            var timestamp = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            var message = $"{source} {timestamp} -- {payload}";
+            Write(message);
         }
     }
 }

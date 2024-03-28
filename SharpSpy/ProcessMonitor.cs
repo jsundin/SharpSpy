@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
@@ -30,29 +30,12 @@ namespace SharpSpy
             {
                 if (lastPids == null || !lastPids.Contains(process.Id))
                 {
-                    object e;
+                    string cmdLine = "";
                     if (showCommandLine)
                     {
-                        e = new
-                        {
-                            ev = "created",
-                            pid = process.Id,
-                            process = process.ProcessName,
-                            commandLine = GetArgumentsForPid(process.Id)
-                        };
+                        cmdLine = $": {GetArgumentsForPid(process.Id)}";
                     }
-                    else
-                    {
-                        e = new
-                        {
-                            ev = "created",
-                            pid = process.Id,
-                            process = process.ProcessName
-                        };
-                    }
-
-
-                    logger.Log(LOG_SOURCE, e);
+                    logger.Log(LOG_SOURCE, $"created: {process.Id}/{process.ProcessName}{cmdLine}");
                 }
                 newPids.Add(process.Id);
             }
@@ -63,11 +46,7 @@ namespace SharpSpy
                 {
                     if (!newPids.Contains(pid))
                     {
-                        logger.Log(LOG_SOURCE, new
-                        {
-                            ev = "killed",
-                            pid = pid
-                        });
+                        logger.Log(LOG_SOURCE, $"killed: {pid}");
                     }
                 }
             }

